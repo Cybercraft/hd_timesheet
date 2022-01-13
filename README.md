@@ -16,7 +16,7 @@ The CSV file must contain the following columns :
 - total_time
 - user
 
-When you enable the module a sample of 10 timesheets are directly imported from the module.
+When you enable the module a sample of 10 timesheets are directly importable from the module.
 
 ## Requirements
 
