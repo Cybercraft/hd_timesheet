@@ -1,0 +1,17 @@
+administer healthdata timesheet:
+  title: 'Administer healthdata timesheet settings'
+  restrict access: true
+delete healthdata timesheet:
+  title: Delete healthdata timesheet
+create healthdata timesheet:
+  title: Create healthdata timesheet
+view healthdata timesheet:
+  title: View healthdata timesheet
+edit healthdata timesheet:
+  title: Edit healthdata timesheet
+view all timesheet revisions:
+  title: View all timesheet revisions
+revert all timesheet revisions:
+  title: Revert all timesheet revisions
+delete all timesheet revisions:
+  title: Delete all revisions

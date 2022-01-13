@@ -1,0 +1,7 @@
+entity.timesheet.settings:
+  path: 'admin/structure/timesheet'
+  defaults:
+    _form: '\Drupal\healthdata_timesheet\Form\HealthdataTimesheetSettingsForm'
+    _title: 'Healthdata timesheet'
+  requirements:
+    _permission: 'administer healthdata timesheet'

@@ -1,0 +1,10 @@
+entity.timesheet.edit_form:
+  route_name: entity.timesheet.edit_form
+  group: timesheet
+  title: Edit
+
+entity.timesheet.delete_form:
+  route_name: entity.timesheet.delete_form
+  group: timesheet
+  title: Delete
+  weight: 10

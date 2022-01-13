@@ -1,0 +1,26 @@
+entity.timesheet.settings:
+  title: 'Settings'
+  route_name: entity.timesheet.settings
+  base_route: entity.timesheet.settings
+entity.timesheet.view:
+  title: 'View'
+  route_name: entity.timesheet.canonical
+  base_route: entity.timesheet.canonical
+entity.timesheet.edit_form:
+  title: 'Edit'
+  route_name: entity.timesheet.edit_form
+  base_route: entity.timesheet.canonical
+entity.timesheet.delete_form:
+  title: 'Delete'
+  route_name: entity.timesheet.delete_form
+  base_route: entity.timesheet.canonical
+  weight: 10
+entity.timesheet.collection:
+  title: 'Healthdata timesheets'
+  route_name: entity.timesheet.collection
+  base_route: system.admin_content
+  weight: 10
+entity.timesheet.version_history:
+  route_name: entity.timesheet.version_history
+  base_route: entity.timesheet.canonical
+  title: 'Revisions'

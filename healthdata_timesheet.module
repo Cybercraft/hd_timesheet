@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Provides a healthdata timesheet entity type.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\healthdata_timesheet\Entity\HealthdataTimesheet;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function healthdata_timesheet_theme() {
+  return [
+    'timesheet' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for healthdata timesheet templates.
+ *
+ * Default template: timesheet.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the healthdata timesheet information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_timesheet(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function healthdata_timesheet_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_reassign':
+      // Anonymize healthdata timesheets.
+      $storage = \Drupal::entityTypeManager()->getStorage('timesheet');
+      $healthdata_timesheet_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($healthdata_timesheet_ids) as $healthdata_timesheet) {
+        $healthdata_timesheet->setOwnerId(0);
+        $healthdata_timesheet->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function healthdata_timesheet_user_predelete(UserInterface $account) {
+  // Delete healthdata timesheets.
+  $storage = \Drupal::entityTypeManager()->getStorage('timesheet');
+  $healthdata_timesheet_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $healthdata_timesheets = $storage->loadMultiple($healthdata_timesheet_ids);
+  $storage->delete($healthdata_timesheets);
+  // Delete old revisions.
+  $healthdata_timesheet_ids = $storage->getQuery()
+    ->allRevisions()
+    ->condition('uid', $account->id())
+    ->execute();
+  foreach (array_keys($healthdata_timesheet_ids) as $revision_id) {
+    $storage->deleteRevision($revision_id);
+  }
+}

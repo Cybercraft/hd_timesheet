@@ -1,0 +1,24 @@
+id: install_migration
+label: 'Migrate examples timesheets from the module'
+migration_group: migration_timesheet
+source:
+  plugin: csv
+  path: 'modules/custom/healthdata_timesheet/timesheets.csv'
+  delimiter: ','
+  enclosure: '"'
+  header_offset: 0
+  ids:
+    - tsid
+
+process:
+  tsid: tsid
+  title: title
+  year: year
+  week: week
+  total_time: total_time
+  uid:
+    - plugin: timesheet_user_import_process
+      source: user
+
+destination:
+  plugin: entity:timesheet

@@ -1,0 +1,5 @@
+timesheet.add_form:
+  title: 'Add healthdata timesheet'
+  route_name: entity.timesheet.add_form
+  appears_on:
+    - entity.timesheet.collection

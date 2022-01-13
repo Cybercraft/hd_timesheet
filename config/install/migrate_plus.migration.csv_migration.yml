@@ -1,0 +1,24 @@
+id: csv_migration
+label: 'Migrate timesheets data from csv files put in public://import-sources/timesheets.csv'
+migration_group: migration_timesheet
+source:
+  plugin: csv
+  path: 'public://import-sources/timesheets.csv'
+  delimiter: ','
+  enclosure: '"'
+  header_offset: 0
+  ids:
+    - tsid
+
+process:
+  tsid: tsid
+  title: title
+  year: year
+  week: week
+  total_time: total_time
+  uid:
+    - plugin: timesheet_user_import_process
+      source: user
+
+destination:
+  plugin: entity:timesheet

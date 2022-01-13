@@ -1,0 +1,14 @@
+name: Healthdata Timesheet
+type: module
+description: Healthdata Test Exercise. Timesheet Content Entity.
+package: Healthdata
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:migrate_source_csv
+  - drupal:migrate_plus
+  - drupal:migrate_tools
+config_devel:
+  install:
+    - migrate_plus.migration_group.migration_timesheet
+    - migrate_plus.migration.csv_migration

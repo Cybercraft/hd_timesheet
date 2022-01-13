@@ -1,0 +1,11 @@
+entity.timesheet.settings:
+  title: 'Healthdata timesheet'
+  description: 'Configure a Healthdata timesheet entity type.'
+  route_name:  entity.timesheet.settings
+  parent: system.admin_structure
+
+entity.timesheet.collection:
+  title: 'Healthdata timesheets'
+  description: 'List of healthdata timesheets.'
+  route_name: entity.timesheet.collection
+  parent: system.admin_content
