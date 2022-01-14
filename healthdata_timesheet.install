@@ -1,0 +1,59 @@
+<?php
+use Drupal\migrate\MigrateExecutable;
+use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\MigrateMessage;
+
+/**
+ * @file
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Creates some default entries on this module entity.
+ *
+ * @see hook_install()
+ *
+ * @ingroup timesheet
+ */
+function healthdata_timesheet_install() {
+  $migration_id = 'install_migration';
+  $migration = \Drupal::service('plugin.manager.migration')->createInstance($migration_id);
+
+  // update existing entity imported.
+  $migration->getIdMap()->prepareUpdate();
+  $executable = new MigrateExecutable($migration, new MigrateMessage());
+
+  try {
+      // Run the migration.
+      $executable->import();
+  }
+  catch (\Exception $e) {
+      $migration->setStatus(MigrationInterface::STATUS_IDLE);
+  }  
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Removes migration coniguration.
+ *
+ * @see hook_uninstall()
+ *
+ * @ingroup timesheet
+ */
+function healthdata_timesheet_uninstall() {
+  $cf = \Drupal::configFactory();
+
+  $configs = [];
+  $configs[] = $cf->getEditable('migrate_plus.migration.install_migration');
+  $configs[] = $cf->getEditable('migrate_plus.migration.csv_migration.yml');
+  $configs[] = $cf->getEditable('migrate_plus.migration_group.migration_timesheet.yml');
+  
+  foreach($configs as $config) {
+    // If migration configuration is still persent - delete.
+    if (!empty($config)) {
+      $config->delete();
+    }
+  }
+}
