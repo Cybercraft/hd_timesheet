@@ -24,6 +24,7 @@ use Drupal\user\EntityOwnerTrait;
  *     plural = "@count healthdata timesheets",
  *   ),
  *   handlers = {
+ *     "storage" = "Drupal\healthdata_timesheet\HealthdataTimesheetStorage",
  *     "list_builder" = "Drupal\healthdata_timesheet\HealthdataTimesheetListBuilder",
  *     "views_data" = "Drupal\healthdata_timesheet\Entity\HealthdataTimesheetViewsData",
  *     "access" = "Drupal\healthdata_timesheet\HealthdataTimesheetAccessControlHandler",
@@ -62,10 +63,10 @@ use Drupal\user\EntityOwnerTrait;
  *     "canonical" = "/timesheet/{timesheet}",
  *     "edit-form" = "/admin/content/timesheet/{timesheet}/edit",
  *     "delete-form" = "/admin/content/timesheet/{timesheet}/delete",
- *     "version-history" = "/homepage/{timesheet}/revisions",
- *     "revision" = "/homepage/{homepage}/revisions/{timesheet_revision}/view",
- *     "revision_revert" = "/homepage/{homepage}/revisions/{timesheet_revision}/revert",
- *     "revision_delete" = "/homepage/{homepage}/revisions/{timesheet_revision}/delete",
+ *     "version-history" = "/timesheet/{timesheet}/revisions",
+ *     "revision" = "/timesheet/{timesheet}/revisions/{timesheet_revision}/view",
+ *     "revision_revert" = "/timesheet/{timesheet}/revisions/{timesheet_revision}/revert",
+ *     "revision_delete" = "/timesheet/{timesheet}/revisions/{timesheet_revision}/delete",
  *   },
  *   field_ui_base_route = "entity.timesheet.settings",
  * )

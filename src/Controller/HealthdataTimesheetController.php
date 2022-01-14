@@ -5,6 +5,7 @@ namespace Drupal\healthdata_timesheet\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\healthdata_timesheet\HealthdataTimesheetInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -118,13 +119,15 @@ class HealthdataTimesheetController extends ControllerBase implements ContainerI
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $timesheet->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.timesheet.revision', [
-            'homepage' => $timesheet->id(),
-            'homepage_revision' => $vid,
-          ]));
+          $link = (new Link($date, new Url('entity.timesheet.revision', [
+            'timesheet' => $timesheet->id(),
+            'timesheet_revision' => $vid,
+          ])))->toString();
         }
         else {
-          $link = $timesheet->link($date);
+          $link = (new Link($date, new Url('entity.timesheet.canonical', [
+            'timesheet' => $timesheet->id()
+          ])))->toString();
         }
 
         $row = [];
